@@ -20,17 +20,17 @@ export class GetEstateTransactionUseCase {
             type
         );
 
-        return transactions.map(
-            (transaction) =>
-                new EstateTransactionResponseDto({
+        console.log('Retrieved transactions:', transactions);
+
+        return transactions.map((transaction) => {
+            const yearData = transaction.data.result.years.find((y) => y.year === year);
+            return new EstateTransactionResponseDto({
                 year: transaction.year,
                 prefectureCode: transaction.prefectureCode,
+                prefectureName: transaction.data.result.prefectureName,
                 type: transaction.type,
-                value: transaction.value,
-                }),
-        );
+                value: yearData?.value || 0,
+            });
+        });
     }
-
-
-
 }  

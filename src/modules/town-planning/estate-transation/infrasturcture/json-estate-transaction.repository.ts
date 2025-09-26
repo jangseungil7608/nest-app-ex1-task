@@ -16,9 +16,10 @@ export class JsonEstateTransactionRepository implements EstateTransactionReposit
   // JSONファイルからデータを読み込み
   private loadData(): void {
     try {
-        const filePath = path.join(process.cwd(), 'assets', 'estate-transactions.json');
+        const filePath = path.join(process.cwd(), 'src/assets', 'estate_transactions.json');
         const rawData = fs.readFileSync(filePath, 'utf-8');
         this.data = JSON.parse(rawData);
+        console.log("JSON data loaded successfully.");
     } catch (error) {
       console.error("Error loading JSON data:", error);
       this.data = [];
@@ -26,16 +27,16 @@ export class JsonEstateTransactionRepository implements EstateTransactionReposit
   }
 
   // 条件に基づいてデータをフィルタリング
-    async findByConditions(
+  async findByConditions(
     year: number,
     prefectureCode: number,
     type: number,
   ): Promise<EstateTransaction[]> {
     return this.data.filter(
-      (item) =>
-        item.year === year &&
-        item.prefectureCode === prefectureCode &&
-        item.type === type,
+      (transaction) =>
+        transaction.year === year &&
+        transaction.prefectureCode === prefectureCode &&
+        transaction.type === type,
     );
   }
 }
