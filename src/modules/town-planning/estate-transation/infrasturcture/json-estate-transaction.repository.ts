@@ -16,7 +16,7 @@ export class JsonEstateTransactionRepository implements EstateTransactionReposit
   // JSONファイルからデータを読み込み
   private loadData(): void {
     try {
-        const filePath = path.join(process.cwd(), 'src/assets', 'estate_transactions.json');
+        const filePath = path.join(process.cwd(), 'assets', 'estate_transactions.json');
         const rawData = fs.readFileSync(filePath, 'utf-8');
         this.data = JSON.parse(rawData);
         console.log("JSON data loaded successfully.");
